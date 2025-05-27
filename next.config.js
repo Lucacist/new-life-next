@@ -2,15 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   // Configuration pour Netlify
-  // Générer un site statique pour le déploiement sur Netlify
-  output: 'export',
-  // Désactiver l'optimisation des images car elle n'est pas compatible avec 'output: export'
-  images: {
-    unoptimized: true,
-  },
-  // Exclure les routes API du build statique
-  // puisque nous utilisons maintenant des fichiers JSON statiques
-  distDir: 'out',
+  // Utiliser le mode standalone qui est mieux pris en charge par Netlify
+  output: 'standalone',
   // Ignorer les erreurs de type lors du build
   typescript: {
     ignoreBuildErrors: true,
@@ -18,6 +11,11 @@ const nextConfig = {
   // Ignorer les erreurs ESLint lors du build
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  // Configuration pour les pages qui utilisent Supabase
+  // Ces pages seront rendues côté client uniquement
+  experimental: {
+    appDir: true,
   },
 };
 
