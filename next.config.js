@@ -13,9 +13,9 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   // Configuration pour les pages qui utilisent Supabase
-  // Ces pages seront rendues côté client uniquement
   experimental: {
-    appDir: true,
+    // Configurer pour que les pages d'authentification fonctionnent correctement
+    serverActions: true,
   },
 };
 
