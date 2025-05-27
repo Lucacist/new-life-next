@@ -1,0 +1,23 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NEXT_USE_NETLIFY_EDGE = "true"
+  NEXT_FORCE_EDGE_IMAGES = "true"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Désactiver le prérendu statique pour les routes d'authentification
+[[redirects]]
+  from = "/login"
+  to = "/login"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/register"
+  to = "/register"
+  status = 200
+  force = true
