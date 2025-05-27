@@ -69,7 +69,8 @@ export default function Contact() {
         </div>
       )}
       
-      <form onSubmit={handleSubmit} className="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <form onSubmit={handleSubmit} className="contact-form" name="contact" method="POST" action="/success" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact" />
         <div className="form-group">
           <label htmlFor="name">Nom:</label>
           <input 

@@ -12,11 +12,8 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Configuration pour les pages qui utilisent Supabase
-  experimental: {
-    // Configurer pour que les pages d'authentification fonctionnent correctement
-    serverActions: true,
-  },
+  // Supprimer les configurations expérimentales qui causent des problèmes
+  distDir: '.next',
 };
 
 module.exports = nextConfig;
