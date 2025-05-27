@@ -76,9 +76,6 @@ export default function Login() {
             Vous n'avez pas de compte ?{' '}
             <Link href="/register">Inscrivez-vous ici</Link>
           </p>
-          <p>
-            <Link href="/">Retour à l'accueil</Link>
-          </p>
         </div>
       </div>
     </div>

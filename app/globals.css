@@ -317,15 +317,16 @@ a, li {
 /* Styles pour les pages d'authentification */
 .auth-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  flex-direction: row;
+  gap: 2rem;
   min-height: calc(100vh - 160px);
   padding: 2rem;
 }
 
 .auth-card {
-  width: 100%;
-  max-width: 500px;
+  width: fit-content;
   padding: 3rem;
   background-color: white;
   border-radius: 15px;
@@ -441,4 +442,14 @@ a, li {
 }
 .home-page-footer p {
   font-size: 1rem;
+}
+
+.auth-image {
+  height: 50vh;
+  margin-bottom: 10rem;
+}
+
+.auth-container-row {
+  display: flex;
+  gap: 2rem;
 }
