@@ -1,95 +1,81 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import SmokingStatsChart from "./components/SmokingStatsChart";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [apiData, setApiData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("/api/hello");
+        const data = await response.json();
+        setApiData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error);
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  return (
+    <div className="home-page">
+      <div className="home-page-content">
+        <div className="home-page-title">
+          <h1>Votre Voyage vers une Vie Sans Tabac</h1>
+          <p>
+            Une révolution dans votre parcours d'arrêt du tabac arrive bientôt
+            sur vos smartphones. Notre application mobile innovante vous
+            accompagnera pas à pas vers une vie plus saine, avec des
+            fonctionnalités uniques
+          </p>
+          <div className="home-page-buttons">
+            <Link href="/login">Se connecter</Link>
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="home-page-image">
+          <img src="/img/plante.svg" alt="Plante" />
+        </div>
+      </div>
+      <div className="home-page-divider">
+        <div className="content">
+          <h2>Suivi Personnalisé</h2>
+          <p>
+            Suivez votre progression et visualisez vos accomplissements jour
+            après jour.
+          </p>
+        </div>
+        <div className="content">
+          <h2>Calculateur d'Économies</h2>
+          <p>
+            Découvrez combien vous économisez en temps réel et planifiez vos
+            futures récompenses.
+          </p>
+        </div>
+        <div className="content">
+          <h2>Conseils et Accompagnement</h2>
+          <p>
+            Accédez à des conseils personnalisés et des stratégies efficaces
+            pour surmonter les envies.
+          </p>
+        </div>
+      </div>
+      <div className="home-page-divider2">
+        <SmokingStatsChart />
+        <div className="home-page-divider2-text">
+          <h1>Le tabac frappe plus fort chez les hommes</h1>
+          <p>Un écart criant, reflet de normes culturelles… mais les risques, eux, sont les mêmes pour tous.</p>
+          <div className="home-page-buttons">
+            <Link href="/about">Voir plus</Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
