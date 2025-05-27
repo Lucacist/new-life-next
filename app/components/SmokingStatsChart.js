@@ -87,7 +87,8 @@ export default function SmokingStatsChart() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/api/smoking-stats');
+        // Utiliser le fichier JSON statique au lieu de l'API
+        const response = await fetch('/data/smoking-stats.json');
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des données');
         }
