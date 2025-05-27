@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { getSupabaseClient, signOut, getCurrentUser } from "@/lib/supabase";
+import { supabase, signOut, getCurrentUser } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 function Navbar() {
@@ -31,8 +31,7 @@ function Navbar() {
     checkUser();
 
     // Écouter les changements d'état d'authentification
-    const client = getSupabaseClient();
-    const { data: authListener } = client.auth.onAuthStateChange(
+    const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (event === "SIGNED_IN" && session) {
           const { user } = await getCurrentUser();
