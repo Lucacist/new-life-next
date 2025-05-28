@@ -153,7 +153,7 @@ export default function Register() {
           </p>
         </div>
       </div>
-      <img className="auth-image" src="/img/signin.svg" alt="Sign In" />
+      <img className="auth-image" style={{ marginBottom: "5rem" }} src="/img/signin.svg" alt="Sign In" />
     </div>
   );
 }

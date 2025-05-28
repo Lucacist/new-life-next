@@ -76,6 +76,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className="home-page-divider3">
+        
+      </div>
     </div>
   );
 }

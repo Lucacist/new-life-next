@@ -36,6 +36,7 @@ export default function Login() {
 
   return (
     <div className="auth-container">
+      <img className="auth-image" src="/img/login.svg" alt="" />
       <div className="auth-card">
         <h1>Connexion</h1>
         
