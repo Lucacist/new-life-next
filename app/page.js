@@ -77,7 +77,11 @@ export default function Home() {
         </div>
       </div>
       <div className="home-page-divider3">
-        
+        <h1>Bientôt disponible sur :</h1>
+        <div className="home-page-divider3-content">
+          <img src="/img/app-store.png" alt="App Store" />
+          <img src="/img/google-play.png" alt="Google Play" />
+        </div>
       </div>
     </div>
   );

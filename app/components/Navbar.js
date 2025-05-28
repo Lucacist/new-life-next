@@ -91,7 +91,7 @@ function Navbar() {
           <Link href="/">Accueil</Link>
         </li>
         <li>
-          <Link href="/about">Infos tabac</Link>
+          <Link href="/TabacInfoPage">Infos tabac</Link>
         </li>
         <li>
           <Link href="/contact">Contact</Link>
