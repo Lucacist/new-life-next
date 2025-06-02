@@ -372,7 +372,7 @@ li {
   align-items: center;
   flex-direction: row;
   gap: 2rem;
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 140px - 2rem);
   padding: 2rem;
 }
 
@@ -659,9 +659,21 @@ button[role="tab"]:hover {
   }
 }
 
+@media (max-width: 1150px) {
+  .auth-image:nth-child(2) {
+    height: 30vh;
+  }
+}
+
 @media (max-width: 1000px) {
   .home-page-divider3-content img {
     width: 25vw;
+  }
+  .auth-image:nth-child(1) {
+    height: 30vh;
+  }
+  .auth-image:nth-child(2) {
+    display: none;
   }
 }
 
@@ -674,6 +686,9 @@ button[role="tab"]:hover {
   }
   .home-page-image {
     height: 40vh;
+  }
+  .auth-image:nth-child(1) {
+    display: none;
   }
 }
 
@@ -730,6 +745,11 @@ button[role="tab"]:hover {
     gap: 2rem;
     padding: 0 4rem 4rem 4rem;
   }
+
+  .auth-container-row {
+    flex-direction: column;
+    gap: 2rem;
+  }
   .smoking-stats-container {
     width: 100%;
     height: auto;
@@ -758,6 +778,15 @@ button[role="tab"]:hover {
   /* On ne masque plus systématiquement navbar-auth */
   .navbar-buttons {
     display: none;
+  }
+  .auth-card {
+    padding: 2rem;
+  }
+  .auth-form {
+    gap: 1rem;
+  }
+  .auth-container-row {
+    gap: 1rem;
   }
 }
 
