@@ -45,10 +45,12 @@ export function TabsContent({ children, value, className = "" }) {
   const { activeTab } = useContext(TabsContext);
   const isActive = activeTab === value;
 
-  if (!isActive) return null;
-
   return (
-    <div className={className} role="tabpanel">
+    <div 
+      className={className} 
+      role="tabpanel" 
+      style={{ display: isActive ? 'flex' : 'none' }}
+    >
       {children}
     </div>
   );
