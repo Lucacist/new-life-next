@@ -244,7 +244,7 @@ li {
 
 .home-page-image {
   display: flex;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 100px);
   background-color: #fbf9e3;
   align-items: center;
 }
@@ -616,17 +616,17 @@ button[role="tab"]:hover {
 
 @media (max-width: 1800px) {
   .home-page-image {
-    height: calc(100vh - 120px);
+    height: calc(100vh - 100px);
   }
 
   .home-page-image img {
-    height: 60vh;
+    height: 70vh;
   }
 }
 
 @media (max-width: 1600px) {
   .home-page-image img {
-    height: 50vh;
+    height: 65vh;
   }
 }
 
@@ -670,10 +670,10 @@ button[role="tab"]:hover {
     font-size: 3rem;
   }
   .home-page-image img {
-    height: 30vh;
+    height: 40vh;
   }
   .home-page-image {
-    height: 30vh;
+    height: 40vh;
   }
 }
 
