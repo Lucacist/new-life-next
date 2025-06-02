@@ -654,6 +654,9 @@ button[role="tab"]:hover {
   h1 {
     font-size: 3.5rem;
   }
+  .navbar {
+    min-height: 80px;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -739,13 +742,24 @@ button[role="tab"]:hover {
   .home-page-divider2-text {
     max-width: 100%;
   }
+
+  .home-page-divider {
+    padding: 0 2rem;
+  }
 }
+
 @media (max-width: 550px) {
   .home-page-divider {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
   .home-page-divider3-content img {
     width: 30vw;
+  }
+  .navbar-auth {
+    display: none;
+  }
+  .burger-menu {
+    margin-left: auto;
   }
 }
 
@@ -761,7 +775,7 @@ button[role="tab"]:hover {
   }
   p,
   .home-page-divider .content p {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   .home-page-buttons a {
@@ -769,6 +783,12 @@ button[role="tab"]:hover {
   }
   .home-page-buttons {
     padding: 0.8rem 1rem;
+  }
+  .home-page-divider .content {
+    padding: 1rem;
+  }
+  .home-page-divider h2 {
+    font-size: 1.2rem;
   }
 }
 
