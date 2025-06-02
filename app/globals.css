@@ -755,11 +755,9 @@ button[role="tab"]:hover {
   .home-page-divider3-content img {
     width: 30vw;
   }
-  .navbar-auth {
+  /* On ne masque plus systématiquement navbar-auth */
+  .navbar-buttons {
     display: none;
-  }
-  .burger-menu {
-    margin-left: auto;
   }
 }
 
