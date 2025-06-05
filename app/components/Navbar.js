@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { supabase, signOut, getCurrentUser } from "@/lib/supabase";
+import { supabase, signOut, getCurrentUser } from "../../lib/supabase";
 import { useRouter } from "next/navigation";
 
 function Navbar() {
@@ -141,7 +141,7 @@ function Navbar() {
                   {profileMenuOpen && (
                     <div className="profile-menu">
                       <Link
-                        href="/profile"
+                        href="/profil"
                         onClick={() => setProfileMenuOpen(false)}
                       >
                         Mon profil
