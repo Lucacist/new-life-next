@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { supabase } from "../../lib/supabase";
 
 function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
   const [selectedType, setSelectedType] = useState("");
@@ -13,6 +14,15 @@ function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
   const [details, setDetails] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
+  
+  // Listes de marques par type de tabac
+  const [brandsList, setBrandsList] = useState({
+    cigarettes: [],
+    rolling: [],
+    cigars: [],
+    pipe: [],
+    chewing: []
+  });
 
   // Initialiser le formulaire avec les données existantes si disponibles
   useEffect(() => {
@@ -25,6 +35,55 @@ function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
       setDetails(initialData.details || {});
     }
   }, [initialData]);
+
+  // Charger les marques de tabac depuis Supabase
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        // Cigarettes classiques
+        const { data: cigarettesData } = await supabase
+          .from('tobacco_brands_cigarettes')
+          .select('name')
+          .order('name');
+
+        // Tabac à rouler
+        const { data: rollingData } = await supabase
+          .from('tobacco_brands_rolling')
+          .select('name')
+          .order('name');
+
+        // Cigares
+        const { data: cigarsData } = await supabase
+          .from('tobacco_brands_cigars')
+          .select('name')
+          .order('name');
+
+        // Tabac à pipe
+        const { data: pipeData } = await supabase
+          .from('tobacco_brands_pipe')
+          .select('name')
+          .order('name');
+
+        // Tabac à chiquer
+        const { data: chewingData } = await supabase
+          .from('tobacco_brands_chewing')
+          .select('name')
+          .order('name');
+
+        setBrandsList({
+          cigarettes: cigarettesData || [],
+          rolling: rollingData || [],
+          cigars: cigarsData || [],
+          pipe: pipeData || [],
+          chewing: chewingData || []
+        });
+      } catch (error) {
+        console.error("Erreur lors du chargement des marques:", error);
+      }
+    };
+
+    fetchBrands();
+  }, []);
 
   // Définir les unités de quantité en fonction du type de tabac sélectionné
   const getUnitOptions = () => {
@@ -85,18 +144,6 @@ function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
                 required
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="purchase-frequency">Fréquence d'achat (jours):</label>
-              <input
-                type="number"
-                id="purchase-frequency"
-                min="0.5"
-                step="0.5"
-                value={details.purchase_frequency_days || ""}
-                onChange={(e) => setDetails({...details, purchase_frequency_days: parseFloat(e.target.value) || ""})}
-                required
-              />
-            </div>
           </>
         );
         
@@ -145,18 +192,6 @@ function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
                 />
                 J'utilise des filtres
               </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="purchase-frequency">Fréquence d'achat (jours):</label>
-              <input
-                type="number"
-                id="purchase-frequency"
-                min="0.5"
-                step="0.5"
-                value={details.purchase_frequency_days || ""}
-                onChange={(e) => setDetails({...details, purchase_frequency_days: parseFloat(e.target.value) || ""})}
-                required
-              />
             </div>
           </>
         );
@@ -210,25 +245,26 @@ function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="liquid-purchase-frequency">Fréquence d'achat de liquide (jours):</label>
+              <label htmlFor="liquid-purchase-frequency">Fréquence d'achat de liquide (mois):</label>
               <input
                 type="number"
                 id="liquid-purchase-frequency"
                 min="0.5"
                 step="0.5"
-                value={details.liquid_purchase_frequency_days || ""}
-                onChange={(e) => setDetails({...details, liquid_purchase_frequency_days: parseFloat(e.target.value) || ""})}
+                value={details.liquid_purchase_frequency_months || ""}
+                onChange={(e) => setDetails({...details, liquid_purchase_frequency_months: parseFloat(e.target.value) || ""})}
                 required
               />
             </div>
             <div className="form-group">
-              <label htmlFor="coil-replacement">Fréquence de remplacement des résistances (jours):</label>
+              <label htmlFor="coil-replacement">Fréquence de remplacement des résistances (mois):</label>
               <input
                 type="number"
                 id="coil-replacement"
-                min="1"
-                value={details.coil_replacement_frequency_days || ""}
-                onChange={(e) => setDetails({...details, coil_replacement_frequency_days: parseInt(e.target.value) || ""})}
+                min="0.5"
+                step="0.5"
+                value={details.coil_replacement_frequency_months || ""}
+                onChange={(e) => setDetails({...details, coil_replacement_frequency_months: parseFloat(e.target.value) || ""})}
               />
             </div>
           </>
@@ -261,18 +297,6 @@ function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
                 required
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="purchase-frequency">Fréquence d'achat (jours):</label>
-              <input
-                type="number"
-                id="purchase-frequency"
-                min="0.5"
-                step="0.5"
-                value={details.purchase_frequency_days || ""}
-                onChange={(e) => setDetails({...details, purchase_frequency_days: parseFloat(e.target.value) || ""})}
-                required
-              />
-            </div>
           </>
         );
         
@@ -299,18 +323,6 @@ function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
                 step="0.01"
                 value={details.package_price || ""}
                 onChange={(e) => setDetails({...details, package_price: parseFloat(e.target.value) || ""})}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="purchase-frequency">Fréquence d'achat (jours):</label>
-              <input
-                type="number"
-                id="purchase-frequency"
-                min="0.5"
-                step="0.5"
-                value={details.purchase_frequency_days || ""}
-                onChange={(e) => setDetails({...details, purchase_frequency_days: parseFloat(e.target.value) || ""})}
                 required
               />
             </div>
@@ -387,13 +399,106 @@ function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
         <>
           <div className="form-group">
             <label htmlFor="brand">Marque:</label>
-            <input
-              type="text"
-              id="brand"
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
-              required
-            />
+            {parseInt(selectedType) === 4 ? (
+              // Pour les cigarettes électroniques, garder un champ texte libre
+              <input
+                type="text"
+                id="brand"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                required
+              />
+            ) : parseInt(selectedType) === 1 ? (
+              // Pour les cigarettes classiques
+              <select
+                id="brand"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                required
+              >
+                <option value="">Sélectionnez une marque</option>
+                {brandsList.cigarettes.map((item) => (
+                  <option key={item.name} value={item.name}>
+                    {item.name}
+                  </option>
+                ))}
+                <option value="autre">Autre...</option>
+              </select>
+            ) : parseInt(selectedType) === 2 || parseInt(selectedType) === 3 ? (
+              // Pour les cigarettes roulées et pots de tabac
+              <select
+                id="brand"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                required
+              >
+                <option value="">Sélectionnez une marque</option>
+                {brandsList.rolling.map((item) => (
+                  <option key={item.name} value={item.name}>
+                    {item.name}
+                  </option>
+                ))}
+                <option value="autre">Autre...</option>
+              </select>
+            ) : parseInt(selectedType) === 7 ? (
+              // Pour les cigares
+              <select
+                id="brand"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                required
+              >
+                <option value="">Sélectionnez une marque</option>
+                {brandsList.cigars.map((item) => (
+                  <option key={item.name} value={item.name}>
+                    {item.name}
+                  </option>
+                ))}
+                <option value="autre">Autre...</option>
+              </select>
+            ) : parseInt(selectedType) === 5 ? (
+              // Pour le tabac à chiquer
+              <select
+                id="brand"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                required
+              >
+                <option value="">Sélectionnez une marque</option>
+                {brandsList.chewing.map((item) => (
+                  <option key={item.name} value={item.name}>
+                    {item.name}
+                  </option>
+                ))}
+                <option value="autre">Autre...</option>
+              </select>
+            ) : (
+              // Pour les autres types
+              <input
+                type="text"
+                id="brand"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                required
+              />
+            )}
+            {brand === "autre" && (
+              <div className="form-group mt-2">
+                <label htmlFor="custom-brand">Précisez la marque:</label>
+                <input
+                  type="text"
+                  id="custom-brand"
+                  value={details.custom_brand || ""}
+                  onChange={(e) => {
+                    setDetails({...details, custom_brand: e.target.value});
+                    if (e.target.value) {
+                      setBrand(e.target.value);
+                    }
+                  }}
+                  required
+                />
+              </div>
+            )}
           </div>
           
           <div className="form-group">
