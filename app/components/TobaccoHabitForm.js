@@ -397,18 +397,18 @@ function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
       
       {selectedType && (
         <>
-          <div className="form-group">
-            <label htmlFor="brand">Marque:</label>
-            {parseInt(selectedType) === 4 ? (
-              // Pour les cigarettes électroniques, garder un champ texte libre
-              <input
-                type="text"
-                id="brand"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-                required
-              />
-            ) : parseInt(selectedType) === 1 ? (
+          {parseInt(selectedType) === 4 ? (
+            // Pour les cigarettes électroniques, on définit une valeur par défaut sans afficher le champ
+            <input
+              type="hidden"
+              id="brand"
+              value="Cigarette électronique"
+              onChange={() => {}}
+            />
+          ) : (
+            <div className="form-group">
+              <label htmlFor="brand">Marque:</label>
+              {parseInt(selectedType) === 1 ? (
               // Pour les cigarettes classiques
               <select
                 id="brand"
@@ -499,7 +499,8 @@ function TobaccoHabitForm({ tobaccoTypes, onSubmit, initialData = null }) {
                 />
               </div>
             )}
-          </div>
+            </div>
+          )}
           
           <div className="form-group">
             <label htmlFor="quantity-per-day">Quantité par jour:</label>
